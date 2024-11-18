@@ -143,6 +143,7 @@ public class InterProcessReadWriteLock {
                     int ourIndex = -1;
                     for (String node : children) {
                         if (node.contains(WRITE_LOCK_NAME)) {
+                            // 找到第一个写锁的地方
                             firstWriteIndex = Math.min(index, firstWriteIndex);
                         } else if (node.startsWith(sequenceNodeName)) {
                             ourIndex = index;

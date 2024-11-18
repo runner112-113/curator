@@ -32,10 +32,12 @@ public class StandardLockInternalsDriver implements LockInternalsDriver {
     @Override
     public PredicateResults getsTheLock(
             CuratorFramework client, List<String> children, String sequenceNodeName, int maxLeases) throws Exception {
+        // 获取当前sequenceNodeName所在的索引
         int ourIndex = children.indexOf(sequenceNodeName);
         validateOurIndex(sequenceNodeName, ourIndex);
 
         boolean getsTheLock = ourIndex < maxLeases;
+        // 计算watch监控的path
         String pathToWatch = getsTheLock ? null : children.get(ourIndex - maxLeases);
 
         return new PredicateResults(pathToWatch, getsTheLock);
